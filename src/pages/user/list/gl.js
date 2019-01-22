@@ -1,10 +1,15 @@
 let that;
 let list = {
+
   data() {
     return {
+      tempUid: '',
+      tempAid: '',
+      seevisable: false,
+      seevisable2: false,
       multipleSelection: [],
       query: {
-        wheres: '',
+        wheres: 'dtype = 1 and is_delete = 0',
         sorts: 'create_time desc',
         pageIndex: 1,
         pageSize: 10
@@ -13,7 +18,7 @@ let list = {
       pageSize: this.yzy.pageSize,
       total: 0,
       tableData: [],
-      searchList: this.yzy.initFilterSearch(['ID', '微信ID','a_id'], ['id', 'wx_id', 'a_id'])
+      searchList: this.yzy.initFilterSearch(['ID', '用户名','手机号'], ['pk_id', 'username',  'phone'])
     }
   },
   mounted() {
@@ -33,7 +38,7 @@ let list = {
       } else {
         this.query.wheres = ''
       }
-      this.yzy.post('file/get', this.query, function (res) {
+      this.yzy.post('user/get', this.query, function (res) {
         if (res.code == 1) {
 
           that.tableData = res.data.list

@@ -13,7 +13,7 @@ let list = {
       pageSize: this.yzy.pageSize,
       total: 0,
       tableData: [],
-      searchList: this.yzy.initFilterSearch(['ID', '昵称', '手机号', '短号'], ['id', 'nick_name', 'phone', 'dphone'])
+      searchList: this.yzy.initFilterSearch(['ID'], ['id'])
     }
   },
   mounted() {

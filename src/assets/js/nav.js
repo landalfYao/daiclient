@@ -25,44 +25,24 @@ const nav = {
       },
       {
         label: "业务员",
-        path: "/",
+        path: "/user/list",
         icon: "ios-person-add-outline"
       },
       {
         label: "管理员",
-        path: "/",
+        path: "/user/gl",
         icon: "ios-person-add-outline"
       }
     ]
-  }],
-  item2: [{
-      label: "项目管理",
-      sub: [{
-        label: "项目列表",
-        path: "/dayin",
-        icon: "ios-list-box-outline"
-      }]
-    },
-    {
-      label: "员工管理",
-      sub: [{
-          label: "经纪人",
-          path: "/",
-          icon: "ios-person-outline"
-        },
-        {
-          label: "业务员",
-          path: "/",
-          icon: "ios-person-add-outline"
-        },
-        {
-          label: "管理员",
-          path: "/",
-          icon: "ios-person-add-outline"
-        }
-      ]
-    }
-  ],
+  },{
+    label: "微信用户",
+    sub: [{
+      label: "用户列表",
+      path: "/wxuser_list",
+      icon: "ios-person-add-outline"
+    }]
+  },],
+  
   daili1: [{
       label: "总览",
       sub: [{

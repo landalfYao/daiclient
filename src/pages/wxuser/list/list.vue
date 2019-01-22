@@ -2,7 +2,6 @@
   <div>
     <div class="panel-start wrap">
       <el-input
-        placeholder="搜索"
         v-for="(item,index) in searchList"
         v-model="item.value"
         :placeholder="item.label"
@@ -51,7 +50,7 @@
     >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="ID" width="55"></el-table-column>
-      <el-table-column label="头像" width="80">
+      <el-table-column label="头像" >
         <template slot-scope="scope">
           <div>
             {{scope.row.avatar_url ? '':'未授权'}}
@@ -73,16 +72,9 @@
           <div>{{scope.row.phone ? scope.row.phone:'未注册'}}</div>
         </template>
       </el-table-column>
-      <el-table-column prop="dphone" label="短号">
-        <template slot-scope="scope">
-          <div>{{scope.row.dphone ? scope.row.dphone:'未填写'}}</div>
-        </template>
-      </el-table-column>
-      <el-table-column prop="信息" label="信息">
-        <template slot-scope="scope">
-          <div>{{scope.row.nick_name ? scope.row.province + ' ' +scope.row.city:'未授权'}}</div>
-        </template>
-      </el-table-column>
+      <el-table-column prop="province" label="省份"></el-table-column>
+      <el-table-column prop="city" label="城市"></el-table-column>
+   
     </el-table>
     <div class="panel-end">
       <el-pagination

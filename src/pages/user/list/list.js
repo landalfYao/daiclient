@@ -1,11 +1,16 @@
 let that;
 let list = {
+
   data() {
     return {
+      tempUid: '',
+      tempAid: '',
+      seevisable: false,
+      seevisable2: false,
       multipleSelection: [],
       query: {
-        wheres: '',
-        sorts: 'create_datetime desc',
+        wheres: 'dtype = 2 and is_delete = 0',
+        sorts: 'create_time desc',
         pageIndex: 1,
         pageSize: 10
       },
@@ -13,7 +18,7 @@ let list = {
       pageSize: this.yzy.pageSize,
       total: 0,
       tableData: [],
-      searchList: this.yzy.initFilterSearch(['ID', '用户名', '昵称', '手机号', '邮箱'], ['pk_id', 'username', 'nick_name', 'phone_number', 'email'])
+      searchList: this.yzy.initFilterSearch(['ID', '用户名','手机号'], ['pk_id', 'username',  'phone'])
     }
   },
   mounted() {
@@ -35,9 +40,7 @@ let list = {
       }
       this.yzy.post('user/get', this.query, function (res) {
         if (res.code == 1) {
-          for (let i in res.data.list) {
-            res.data.list[i].update_datetime = new Date(res.data.list[i].update_datetime).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
-          }
+
           that.tableData = res.data.list
           that.total = res.data.total
         } else {
