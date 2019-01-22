@@ -7,9 +7,8 @@ let list = {
       seevisable: false,
       multipleSelection: [],
       query: {
-        fields: 'helplist.*,wxuser.phone,wxuser.dphone,wxuser.avatar_url,wxuser.nick_name',
         wheres: '',
-        sorts: 'helplist.state asc,helplist.create_time desc',
+        sorts: 'create_time desc',
         pageIndex: 1,
         pageSize: 10
       },
@@ -17,7 +16,7 @@ let list = {
       pageSize: this.yzy.pageSize,
       total: 0,
       tableData: [],
-      searchList: this.yzy.initFilterSearch(['订单编号', '昵称', '手机号', '短号', '状态(1,2,3,4)'], ['order_num', 'nick_name', 'phone', 'dphone', 'state'])
+      searchList: this.yzy.initFilterSearch(['订单编号'], ['id'])
     }
   },
   mounted() {
@@ -82,10 +81,9 @@ let list = {
         }
       }
 
-      sq += ' title in ("打印服务") and state in (1,2,3,4) and helplist.is_delete=0 '
-      sq += sessionStorage.getItem('a_id') ? ' and a_id=' + sessionStorage.getItem('a_id') : ''
+      sq += ''
       this.query.wheres = sq
-      this.yzy.post('help/get2', this.query, function (res) {
+      this.yzy.post('order/get', this.query, function (res) {
         if (res.code == 1) {
 
           that.tableData = res.data.list

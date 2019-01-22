@@ -23,9 +23,7 @@ import area_edit from '../pages/area/area_edit.vue'
 import server from '../pages/server/server.vue'
 import wxuserList from '../pages/wxuser/list/list.vue'
 
-import daiqu from '../pages/order/daiqu.vue'
 import dayin from '../pages/order/dayin.vue'
-import other from '../pages/order/other.vue'
 
 import jdlist from '../pages/wxuser/jdlist/jdlist.vue'
 import shlist from '../pages/wxuser/sh/jdlist.vue'
@@ -120,21 +118,13 @@ export default new Router({
           name: '微信用户',
           component: wxuserList
         },
-        {
-          path: '/daiqu',
-          name: '快递代取订单',
-          component: daiqu
-        },
+
         {
           path: '/dayin',
           name: '打印服务',
           component: dayin
         },
-        {
-          path: '/other',
-          name: '其他订单',
-          component: other
-        },
+
         {
           path: '/jdlist',
           name: '接单员列表',

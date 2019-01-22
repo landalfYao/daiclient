@@ -10,19 +10,6 @@
         </div>
         <div class="w-800 panel-center">
           <!-- 中间部分 -->
-          <el-menu
-            v-if="dtype == 1"
-            class="el-menu-demo"
-            mode="horizontal"
-            :default-active="defaultMeun"
-            @select="selectTopNav"
-          >
-            <el-menu-item
-              v-for="(item,index) in topNav"
-              :key="index"
-              :index="item.path"
-            >{{item.label}}</el-menu-item>
-          </el-menu>
         </div>
         <div class="w-250 text-right">
           <el-dropdown trigger="click">
@@ -69,13 +56,7 @@
               </el-breadcrumb>
               <div class="fo-36 ma-t10">{{linkName}}</div>
             </div>
-            <div>
-              <div>
-                <el-input placeholder="输入页面名称">
-                  <template slot="append">跳转</template>
-                </el-input>
-              </div>
-            </div>
+            <div></div>
           </div>
           <div class="main-right-panel">
             <router-view></router-view>

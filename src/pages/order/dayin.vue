@@ -2,7 +2,6 @@
   <div>
     <div class="panel-start wrap">
       <el-input
-        placeholder="搜索"
         v-for="(item,index) in searchList"
         v-model="item.value"
         :placeholder="item.label"
@@ -13,6 +12,7 @@
       <el-button-group>
         <el-button type="ghost" @click="clear()">清除</el-button>
         <el-button type="primary" @click="search()">搜索</el-button>
+        <el-button type="ghost" @click="getList()">刷新</el-button>
       </el-button-group>
     </div>
 
@@ -49,39 +49,36 @@
       @filter-change="filterChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="order_num" label="订单编号"></el-table-column>
-      <el-table-column prop="nick_name" label="下单用户"></el-table-column>
-      <el-table-column prop="phone" label="手机号"></el-table-column>
-      <el-table-column prop="dphone" label="短号"></el-table-column>
-      <el-table-column prop="des" label="信息"></el-table-column>
-      <el-table-column prop="mu" label="目的地"></el-table-column>
-      <el-table-column prop="file" label="文件名"></el-table-column>
-      <el-table-column prop="page" label="页数" width="55"></el-table-column>
-      <el-table-column label="印刷">
+      <el-table-column prop="id" label="订单编号"></el-table-column>
+      <el-table-column prop="title" label="项目名"></el-table-column>
+      <el-table-column prop="name" label="客户名"></el-table-column>
+      <el-table-column prop="phone" label="客户手机"></el-table-column>
+      <el-table-column prop="position" label="职业"></el-table-column>
+      <el-table-column prop="money" label="贷款金额">
         <template slot-scope="scope">
-          <el-tag
-            size="mini"
-            :type="scope.row.cai == 1 ? 'success':'info'"
-          >{{scope.row.cai == 1 ? '彩印':'黑白'}}</el-tag>
+          <div>{{scope.row.money}}万元</div>
         </template>
       </el-table-column>
-      <el-table-column prop="total_fee" label="已支付"></el-table-column>
+      <el-table-column label="期限">
+        <template slot-scope="scope">
+          <div>{{scope.row.date}}个月</div>
+        </template>
+      </el-table-column>
+
+      <el-table-column prop="jjr" label="经纪人"></el-table-column>
+      <el-table-column prop="ywy" label="业务员"></el-table-column>
+      <el-table-column prop="qdate" label="签约时间"></el-table-column>
       <el-table-column label="状态" column-key="state">
         <template slot-scope="scope">
           <el-tag
             size="mini"
-            :type="scope.row.state == 1 ? 'success':scope.row.state == 2 ? 'primary':scope.row.state == 3 ? 'warning':'error'"
-          >{{scope.row.state == 1 ? '需要帮助':scope.row.state == 2 ? '已帮助':scope.row.state == 3 ? '已完成':'已取消'}}</el-tag>
+            :type="scope.row.state == '已完成' ? 'success':scope.row.state == '服务中' ? 'primary':scope.row.state == '洽谈中' ? 'warning':'danger'"
+          >{{scope.row.state}}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button type="text" @click="jdclick(scope.row)" v-if="scope.row.state == 1">接单</el-button>
-          <el-button
-            v-if="scope.row.state != 1 && scope.row.state != 0"
-            type="text"
-            @click="download(scope.row.file)"
-          >下载</el-button>
+          <el-button type="text" @click="jdclick(scope.row)">分配项目</el-button>
         </template>
       </el-table-column>
     </el-table>
