@@ -16,7 +16,8 @@ let list = {
       jjrs: [],
       query: {
         wheres: '',
-        sorts: 'create_time desc',
+        fields: 'orders.*,y_user.name ywyname,agents.name jjrname',
+        sorts: 'orders.create_time desc',
         pageIndex: 1,
         pageSize: 10
       },
@@ -33,7 +34,15 @@ let list = {
     that.getJDUser()
   },
   methods: {
-
+    printIt() {
+      let bdhtml = window.document.body.innerHTML;
+      let sprnstr = "<!--startprint-->";
+      let eprnstr = "<!--endprint-->";
+      let prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+      prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+      window.document.body.innerHTML = prnhtml;
+      window.print();
+    },
     getJJR() {
       if (this.jjrs.length == 0) {
         this.yzy.post('agent/get', {
@@ -162,16 +171,7 @@ let list = {
       }
     },
     getList() {
-      let t = this.query.wheres
-      let sq = ''
-      for (let i in this.wheres) {
-        if (this.wheres[i].value && this.wheres[i].value != '') {
-          sq += this.wheres[i].value + ' and '
-        }
-      }
 
-      sq += ''
-      this.query.wheres = sq
       this.yzy.post('order/get', this.query, function (res) {
         if (res.code == 1) {
 

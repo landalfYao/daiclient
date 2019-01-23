@@ -6,8 +6,16 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import router from './router'
 import 'iview/dist/styles/iview.css';
-import { Menu,MenuGroup,MenuItem,Icon,Timeline ,TimelineItem } from 'iview';
-
+import {
+  Menu,
+  MenuGroup,
+  MenuItem,
+  Icon,
+  Timeline,
+  TimelineItem
+} from 'iview';
+import Print from 'vue-print-nb'
+Vue.use(Print);
 Vue.config.productionTip = false
 Vue.prototype.yzy = require('./assets/js/yzy')
 
@@ -23,6 +31,8 @@ Vue.use(ElementUI);
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>'
 })
