@@ -6,27 +6,23 @@ let list = {
         username: '',
         password: '',
         checkPwd: '',
-        dtype: '',
-        a_id: '',
+        dtype: 2,
+        name: '',
         phone: '',
-        deadline: ''
+        price: '',
+        msg: ''
       },
       formData2: {
         username: '',
         password: '',
         checkPwd: '',
-        dtype: '',
-        a_id: '',
+        dtype: 2,
+        name: '',
         phone: '',
-        deadline: ''
+        price: '',
+        msg: ''
       },
-      utype: [{
-        label: '管理员',
-        value: 1
-      }, {
-        label: '校园代理',
-        value: 2
-      }],
+
       loading: false
     }
   },
@@ -38,12 +34,13 @@ let list = {
       this.loading = true
       let formData = {
         username: this.formData.username,
-        password: this.yzy.encrypt(this.formData.password),
-        checkPwd: this.yzy.encrypt(this.formData.checkPwd),
-        a_id: this.formData.a_id,
+        password: this.formData.password,
+        checkPwd: this.formData.checkPwd,
+        name: this.formData.name,
         dtype: this.formData.dtype,
         phone: this.formData.phone,
-        deadline: this.formData.deadline
+        price: this.formData.price,
+        msg: this.formData.msg
       }
       formData.password = this.yzy.encrypt(formData.password)
       formData.checkPwd = this.yzy.encrypt(formData.checkPwd)

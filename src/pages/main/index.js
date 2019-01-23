@@ -25,26 +25,26 @@ let main = {
     that = this
     this.onResize()
     this.initUser()
-    this.getServer()
+    // this.getServer()
   },
   methods: {
-    getServer() {
-      this.yzy.post('server/get/uid', {
-        uid: sessionStorage.getItem('uid')
-      }, function (res) {
-        if (res.code == 1) {
-          for (let i in res.data) {
-            if (res.data[i].jdr != '' && res.data[i].jdr != null) {
-              res.data[i].jdr = res.data[i].jdr.split(',')
-            } else {
-              res.data[i].jdr = []
-            }
-          }
-          that.list = res.data
-          global.dlserver = res.data
-        }
-      })
-    },
+    // getServer() {
+    //   this.yzy.post('server/get/uid', {
+    //     uid: sessionStorage.getItem('uid')
+    //   }, function (res) {
+    //     if (res.code == 1) {
+    //       for (let i in res.data) {
+    //         if (res.data[i].jdr != '' && res.data[i].jdr != null) {
+    //           res.data[i].jdr = res.data[i].jdr.split(',')
+    //         } else {
+    //           res.data[i].jdr = []
+    //         }
+    //       }
+    //       that.list = res.data
+    //       global.dlserver = res.data
+    //     }
+    //   })
+    // },
     //监听窗口变化
     onResize() {
       window.onresize = function () {

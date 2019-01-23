@@ -5,7 +5,15 @@ let list = {
     return {
       jdr: [],
       seevisable: false,
+      seevisable2: false,
+      seevisable3: false,
       multipleSelection: [],
+      loading: false,
+      tempId: '',
+      tempYid: '',
+      tempJid: '',
+      ywys: [],
+      jjrs: [],
       query: {
         wheres: '',
         sorts: 'create_time desc',
@@ -25,28 +33,95 @@ let list = {
     that.getJDUser()
   },
   methods: {
-    download(e) {
-      window.location.href = 'https://hapi.ypyzy.top/uploads/files/' + e
+
+    getJJR() {
+      if (this.jjrs.length == 0) {
+        this.yzy.post('agent/get', {
+          fields: 'agents.*',
+          wheres: '',
+          sorts: 'create_time desc',
+          pageIndex: 1,
+          pageSize: 1000,
+        }, function (res) {
+          if (res.code == 1) {
+
+            that.jjrs = res.data.list
+          } else {
+            that.$message({
+              type: 'error',
+              message: res.msg
+            })
+          }
+        })
+      }
     },
-    jdclick(res) {
-      if (this.jdr.length == 0) {
+    getYwy() {
+      if (this.ywys.length == 0) {
+        this.yzy.post('user/get', {
+          wheres: 'dtype = 2 and is_delete = 0',
+          pageIndex: 1,
+          pageSize: 1000,
+        }, function (res) {
+          if (res.code == 1) {
+
+            that.ywys = res.data.list
+          } else {
+            that.$message({
+              type: 'error',
+              message: res.msg
+            })
+          }
+        })
+      }
+
+    },
+    jjrdo() {
+      if (this.tempJid == '') {
         that.$message({
           type: 'error',
-          message: '还没有设置默认接单人'
+          message: '请选择分配'
         })
       } else {
-        this.yzy.post('help/jd', {
-          jd_id: this.jdr[3],
-          id: res.id,
-          openid: res.openid,
-          form_id: res.form_id,
-          title: res.title,
-          order_num: res.order_num
+        this.loading = true
+        this.yzy.post('order/update/jjr', {
+          id: this.tempId,
+          jid: this.tempJid
         }, function (res) {
+          that.loading = false
+          that.seevisable2 = false
           if (res.code == 1) {
             that.$message({
               type: 'success',
-              message: '接单成功'
+              message: '添加成功'
+            })
+            that.getList()
+          } else {
+            that.$message({
+              type: 'error',
+              message: res.msg
+            })
+          }
+        })
+      }
+    },
+    ywydo() {
+      if (this.tempYid == '') {
+        that.$message({
+          type: 'error',
+          message: '请选择分配'
+        })
+      } else {
+        this.loading = true
+        this.yzy.post('order/update/ywy', {
+          id: this.tempId,
+          yid: this.tempYid
+        }, function (res) {
+          that.loading = false
+          that.seevisable = false
+          if (res.code == 1) {
+            that.$message({
+              type: 'success',
+              message: '分配成功'
             })
             that.getList()
           } else {
@@ -59,6 +134,20 @@ let list = {
       }
 
     },
+    //批量分配
+    plfenpei() {
+      if (this.multipleSelection.length == 0) {
+        that.$message({
+          type: 'warning',
+          message: '请先选择项目'
+        })
+      } else {
+        this.tempId = this.filterIds().toString()
+        this.seevisable = true
+        this.getYwy()
+      }
+    },
+
     //获取接单用户信息
     getJDUser() {
       let server = global.dlserver;
@@ -157,7 +246,7 @@ let list = {
     filterIds() {
       let arr = []
       for (let i in this.multipleSelection) {
-        arr.push(this.multipleSelection[i].pk_id)
+        arr.push(this.multipleSelection[i].id)
       }
       return arr
     },

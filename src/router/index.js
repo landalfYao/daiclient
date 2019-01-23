@@ -7,10 +7,10 @@ import userList from '../pages/user/list/list.vue'
 import updatepwd from '../pages/user/updatepwd/updatepwd.vue'
 import userInfo from '../pages/user/info/info.vue'
 import gly from '../pages/user/list/gl.vue'
+import register from '../pages/user/register/register.vue'
 
 
-
-import agentEdit from '../pages/agent/agent_edit.vue'
+// import agentEdit from '../pages/agent/agent_edit.vue'
 import agent from '../pages/agent/agent.vue'
 
 import wxuserList from '../pages/wxuser/list/list.vue'
@@ -19,6 +19,8 @@ import dayin from '../pages/order/dayin.vue'
 
 import jdlist from '../pages/wxuser/jdlist/jdlist.vue'
 import shlist from '../pages/wxuser/sh/jdlist.vue'
+
+import orderInfo from '../pages/order/info.vue'
 
 
 
@@ -31,7 +33,7 @@ export default new Router({
       name: 'login',
       component: login
     },
-    
+
     {
       path: '/',
       name: 'main',
@@ -40,6 +42,11 @@ export default new Router({
           path: '/user/list',
           name: '业务员列表',
           component: userList
+        },
+        {
+          path: '/register',
+          name: '用户注册',
+          component: register
         },
         {
           path: '/user/gl',
@@ -51,7 +58,7 @@ export default new Router({
           name: '用户信息',
           component: userInfo
         },
-        
+
         {
           path: '/updatepwd',
           name: '修改密码',
@@ -59,16 +66,11 @@ export default new Router({
         },
 
         {
-          path: '/agent_edit',
-          name: '新增代理商',
-          component: agentEdit
-        },
-        {
           path: '/agent',
-          name: '代理商列表',
+          name: '经纪人列表',
           component: agent
         },
-        
+
         {
           path: '/wxuser_list',
           name: '微信用户',
@@ -80,7 +82,11 @@ export default new Router({
           name: '项目列表',
           component: dayin
         },
-
+        {
+          path: '/order/detail',
+          name: '项目详情',
+          component: orderInfo
+        },
         {
           path: '/jdlist',
           name: '接单员列表',
@@ -91,7 +97,7 @@ export default new Router({
           name: '审核列表',
           component: shlist
         },
-        
+
       ]
     }
   ]

@@ -9,6 +9,7 @@ let list = {
       seevisable2: false,
       multipleSelection: [],
       query: {
+        fields: 'wxuser.id wx_id,wxuser.avatar_url,wxuser.phone,agents.*',
         wheres: '',
         sorts: 'create_time desc',
         pageIndex: 1,
@@ -33,12 +34,10 @@ let list = {
           sq += this.wheres[i].value + ' and '
         }
       }
-      if (sq != '') {
-        this.query.wheres = sq.substring(0, sq.length - 4)
-      } else {
-        this.query.wheres = ''
-      }
-      this.yzy.post('user/get', this.query, function (res) {
+
+      this.query.wheres = sq + 'wxuser.id = agents.wx_id '
+
+      this.yzy.post('agent/get', this.query, function (res) {
         if (res.code == 1) {
 
           that.tableData = res.data.list

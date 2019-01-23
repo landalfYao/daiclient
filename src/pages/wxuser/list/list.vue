@@ -50,7 +50,7 @@
     >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="ID" width="55"></el-table-column>
-      <el-table-column label="头像" >
+      <el-table-column label="头像">
         <template slot-scope="scope">
           <div>
             {{scope.row.avatar_url ? '':'未授权'}}
@@ -74,7 +74,16 @@
       </el-table-column>
       <el-table-column prop="province" label="省份"></el-table-column>
       <el-table-column prop="city" label="城市"></el-table-column>
-   
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <div>
+            <el-button
+              type="text"
+              @click="centerDialogVisible = true,formData.wx_id = scope.row.id"
+            >添加为经纪人</el-button>
+          </div>
+        </template>
+      </el-table-column>
     </el-table>
     <div class="panel-end">
       <el-pagination
@@ -87,6 +96,24 @@
         style="margin-top:15px"
       ></el-pagination>
     </div>
+    <el-dialog title="添加为经纪人" :visible.sync="centerDialogVisible" width="400px" center>
+      <el-form ref="form" :model="formData" label-position="top" style="margin:auto;">
+        <el-form-item label="姓名">
+          <el-input v-model="formData.name" placeholder="姓名"></el-input>
+        </el-form-item>
+        <el-form-item label="固定佣金">
+          <el-input v-model="formData.price" placeholder="固定佣金(元)"></el-input>
+        </el-form-item>
+        <el-form-item label="描述">
+          <el-input v-model="formData.msg" placeholder="描述"></el-input>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button @click="centerDialogVisible = false">取 消</el-button>
+          <el-button :loading="loading" type="primary" @click="submitAgents()">确 认 提 交</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 <script>

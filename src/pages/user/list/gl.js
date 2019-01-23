@@ -9,7 +9,7 @@ let list = {
       seevisable2: false,
       multipleSelection: [],
       query: {
-        wheres: 'dtype = 1 and is_delete = 0',
+        wheres: '',
         sorts: 'create_time desc',
         pageIndex: 1,
         pageSize: 10
@@ -18,7 +18,7 @@ let list = {
       pageSize: this.yzy.pageSize,
       total: 0,
       tableData: [],
-      searchList: this.yzy.initFilterSearch(['ID', '用户名','手机号'], ['pk_id', 'username',  'phone'])
+      searchList: this.yzy.initFilterSearch(['ID', '用户名', '手机号'], ['pk_id', 'username', 'phone'])
     }
   },
   mounted() {
@@ -33,11 +33,7 @@ let list = {
           sq += this.wheres[i].value + ' and '
         }
       }
-      if (sq != '') {
-        this.query.wheres = sq.substring(0, sq.length - 4)
-      } else {
-        this.query.wheres = ''
-      }
+      this.query.wheres = sq + 'dtype = 1 and is_delete = 0'
       this.yzy.post('user/get', this.query, function (res) {
         if (res.code == 1) {
 

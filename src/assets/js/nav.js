@@ -20,7 +20,7 @@ const nav = {
     label: "员工管理",
     sub: [{
         label: "经纪人",
-        path: "/",
+        path: "/agent",
         icon: "ios-person-outline"
       },
       {
@@ -34,15 +34,15 @@ const nav = {
         icon: "ios-person-add-outline"
       }
     ]
-  },{
+  }, {
     label: "微信用户",
     sub: [{
       label: "用户列表",
       path: "/wxuser_list",
       icon: "ios-person-add-outline"
     }]
-  },],
-  
+  }, ],
+
   daili1: [{
       label: "总览",
       sub: [{

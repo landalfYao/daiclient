@@ -20,7 +20,7 @@
       <div class="panel-between item-center">
         <el-button-group>
           <!-- <el-button type="danger" plain icon="el-icon-delete"></el-button> -->
-          <!-- <el-button type="success" plain @click="changeUserState('available')">接单</el-button>-->
+          <!-- <el-button type="primary" plain @click="plfenpei()">批量分配</el-button> -->
         </el-button-group>
         <el-select
           v-model="query.pageSize"
@@ -78,7 +78,47 @@
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button type="text" @click="jdclick(scope.row)">分配项目</el-button>
+          <el-dropdown>
+            <el-button class="el-dropdown-link" type="text">
+              操作
+              <i class="el-icon-arrow-down el-icon--right"></i>
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>
+                <el-button
+                  type="text"
+                  class="w-100 text-center pa-10"
+                  v-if="scope.ywy == ''"
+                  @click="seevisable = true,tempId = scope.row.id,getYwy()"
+                >分配项目</el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <el-button
+                  type="text"
+                  class="w-100 text-center pa-10"
+                  style="margin:0;"
+                  v-if="scope.jjr == ''"
+                  @click="seevisable2 = true,tempId = scope.row.id,getJJR()"
+                >添经纪人</el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <el-button
+                  type="text"
+                  class="w-100 text-center pa-10"
+                  style="margin:0"
+                  @click="jdclick(scope.row)"
+                >更改</el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <el-button
+                  type="text"
+                  class="w-100 text-center pa-10"
+                  style="margin:0"
+                  @click="seevisable3 = true,tempId = scope.row.id"
+                >查看详情</el-button>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </template>
       </el-table-column>
     </el-table>
@@ -93,9 +133,34 @@
         style="margin-top:15px"
       ></el-pagination>
     </div>
+    <el-dialog title="分配至业务员" :visible.sync="seevisable" width="300px" center>
+      <div>选择业务员</div>
+      <el-select v-model="tempYid" filterable placeholder="请选择" style="width:100%">
+        <el-option v-for="item in ywys" :key="item.pk_id" :label="item.name" :value="item.pk_id"></el-option>
+      </el-select>
+      <div class="panel-end ma-t30">
+        <el-button type="default" @click="seevisable = false">取 消</el-button>
+        <el-button type="primary" @click="ywydo()">确 认 选 择</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog title="添加经纪人" :visible.sync="seevisable2" width="300px" center>
+      <div>选择经纪人</div>
+      <el-select v-model="tempJid" filterable placeholder="请选择" style="width:100%">
+        <el-option v-for="item in jjrs" :key="item.wx_id" :label="item.name" :value="item.wx_id"></el-option>
+      </el-select>
+      <div class="panel-end ma-t30">
+        <el-button type="default" @click="seevisable2 = false">取 消</el-button>
+        <el-button type="primary" @click="jjrdo()">确 认 选 择</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog title="项目详情" :visible.sync="seevisable3" width="1000px" center>
+      <oinfo :oid="tempId"></oinfo>
+    </el-dialog>
   </div>
 </template>
 <script>
+import oinfo from "../order/info.vue";
 let app = require("./dayin.js");
+app.components = { oinfo };
 export default app;
 </script>

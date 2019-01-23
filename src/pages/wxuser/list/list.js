@@ -2,6 +2,14 @@ let that;
 let list = {
   data() {
     return {
+      formData: {
+        wx_id: '',
+        name: '',
+        price: '',
+        msg: ''
+      },
+      loading: false,
+      centerDialogVisible: false,
       multipleSelection: [],
       query: {
         wheres: '',
@@ -21,6 +29,32 @@ let list = {
     that.getList()
   },
   methods: {
+    submitAgents() {
+      if (this.formData.wx_id != '' && this.formData.name != '' && this.formData.price != '' && this.formData.msg != '') {
+        this.loading = true
+        this.yzy.post('agent/add', this.formData, function (res) {
+          that.centerDialogVisible = false
+          that.loading = false
+          if (res.code) {
+
+            that.$message({
+              type: 'success',
+              message: '添加成功'
+            })
+          } else {
+            that.$message({
+              type: 'error',
+              message: res.msg
+            })
+          }
+        })
+      } else {
+        that.$message({
+          type: 'error',
+          message: '所有信息必填'
+        })
+      }
+    },
     getList() {
       let sq = ''
       for (let i in this.wheres) {

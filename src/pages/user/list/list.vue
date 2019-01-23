@@ -22,6 +22,7 @@
           <!-- <el-button type="danger" plain icon="el-icon-delete"></el-button> -->
           <el-button type="success" plain @click="changeUserState('available')">启用用户</el-button>
           <el-button type="warning" plain @click="changeUserState('disable')">禁用用户</el-button>
+          <el-button type="primary" plain @click="navTo('/register')">新增业务员</el-button>
         </el-button-group>
         <el-select
           v-model="query.pageSize"
@@ -46,15 +47,16 @@
       border
       size="small"
       style="width: 100%;margin-top:15px"
-      @selection-change="handleSelectionChange"
-      @filter-change="filterChange"
+      @selection-change="handleSelectionChangeYid"
     >
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="pk_id" label="ID"></el-table-column>
       <el-table-column prop="username" label="用户名"></el-table-column>
       <el-table-column prop="phone" label="手机号"></el-table-column>
       <el-table-column prop="name" label="姓名"></el-table-column>
-      
+      <el-table-column prop="wallets" label="获得佣金"></el-table-column>
+      <el-table-column prop="cash" label="已取佣金"></el-table-column>
+      <el-table-column prop="msg" label="描述"></el-table-column>
       <el-table-column
         prop="user_state"
         label="状态"
@@ -67,10 +69,11 @@
           >{{scope.row.user_state == 'AVAILABLE' ? '可用':'禁用'}}</el-tag>
         </template>
       </el-table-column>
+      <el-table-column prop="person_num" label="客户数"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button type="text" @click="seevisable = true,tempUid = scope.row.pk_id">查看</el-button>
-          <el-button type="text" @click="seevisable2 = true,tempAid = scope.row.a_id">运营数据</el-button>
+          <el-button type="text" @click="seevisable = true,tempUid = scope.row.pk_id">查看记录</el-button>
+          <el-button type="text" @click="seevisable2 = true,tempAid = scope.row.a_id">更改信息</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -94,6 +97,6 @@
 <script>
 // import info from "../user/info/info.vue";
 let app = require("./list.js");
-app.components = {  };
+app.components = {};
 export default app;
 </script>

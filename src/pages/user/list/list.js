@@ -9,7 +9,7 @@ let list = {
       seevisable2: false,
       multipleSelection: [],
       query: {
-        wheres: 'dtype = 2 and is_delete = 0',
+        wheres: '',
         sorts: 'create_time desc',
         pageIndex: 1,
         pageSize: 10
@@ -18,7 +18,7 @@ let list = {
       pageSize: this.yzy.pageSize,
       total: 0,
       tableData: [],
-      searchList: this.yzy.initFilterSearch(['ID', '用户名','手机号'], ['pk_id', 'username',  'phone'])
+      searchList: this.yzy.initFilterSearch(['ID', '用户名', '手机号'], ['pk_id', 'username', 'phone'])
     }
   },
   mounted() {
@@ -26,6 +26,11 @@ let list = {
     that.getList()
   },
   methods: {
+    navTo(path) {
+      this.$router.push({
+        path: path
+      })
+    },
     getList() {
       let sq = ''
       for (let i in this.wheres) {
@@ -33,11 +38,8 @@ let list = {
           sq += this.wheres[i].value + ' and '
         }
       }
-      if (sq != '') {
-        this.query.wheres = sq.substring(0, sq.length - 4)
-      } else {
-        this.query.wheres = ''
-      }
+
+      this.query.wheres = sq + 'dtype = 2 and is_delete = 0'
       this.yzy.post('user/get', this.query, function (res) {
         if (res.code == 1) {
 
@@ -51,41 +53,7 @@ let list = {
         }
       })
     },
-    filterChange(e) {
-      let temp = -1
-      let arr = this.wheres
-      let resArr = e['user_state']
 
-      for (let i in resArr) {
-        if (resArr[i].indexOf("'") < 0) {
-          resArr[i] = "'" + resArr[i] + "'"
-        }
-      }
-
-      let sq = 'user_state in (' + resArr + ')'
-      for (let i in arr) {
-        if (arr[i].label == 'user_state') {
-          temp = i
-        }
-      }
-
-      if (resArr.length == 0) {
-        if (temp != -1) {
-          this.wheres.splice(temp, 1)
-        }
-      } else {
-        if (temp == -1) {
-          this.wheres.push({
-            label: 'user_state',
-            value: sq
-          })
-        } else {
-          this.wheres[temp].value = sq
-        }
-      }
-
-      this.getList()
-    },
     changeUserState(state) {
 
       if (state == 'disable') {
@@ -112,7 +80,7 @@ let list = {
     filterIds() {
       let arr = []
       for (let i in this.multipleSelection) {
-        arr.push(this.multipleSelection[i].pk_id)
+        arr.push(this.multipleSelection[i].id)
       }
       return arr
     },
@@ -146,8 +114,14 @@ let list = {
       }
       that.getList()
     },
-    handleSelectionChange(val) {
+    handleSelectionChangeYid(val) {
       this.multipleSelection = val;
+      if (val.length > 0) {
+        sessionStorage.setItem("yid", val[0].id)
+      } else {
+        sessionStorage.removeItem("yid")
+      }
+
     },
     handleSizeChange(e) {
       this.getList()
