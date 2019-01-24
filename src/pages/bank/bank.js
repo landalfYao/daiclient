@@ -10,7 +10,7 @@ let list = {
       multipleSelection: [],
       query: {
         wheres: '',
-        sorts: 'create_time desc',
+        sorts: 'sort asc',
         pageIndex: 1,
         pageSize: 10
       },
@@ -18,7 +18,7 @@ let list = {
       pageSize: this.yzy.pageSize,
       total: 0,
       tableData: [],
-      searchList: this.yzy.initFilterSearch(['ID', '用户名', '手机号'], ['pk_id', 'username', 'phone'])
+      searchList: this.yzy.initFilterSearch(['ID'], ['id'])
     }
   },
   mounted() {
@@ -26,9 +26,12 @@ let list = {
     that.getList()
   },
   methods: {
-    navTo(path) {
+    navTo(path, id) {
       this.$router.push({
-        path: path
+        path: path,
+        query: {
+          id: id
+        }
       })
     },
     getList() {
@@ -39,8 +42,7 @@ let list = {
         }
       }
 
-      this.query.wheres = sq + 'dtype = 2 and is_delete = 0'
-      this.yzy.post('user/get', this.query, function (res) {
+      this.yzy.post('bank/get', this.query, function (res) {
         if (res.code == 1) {
 
           that.tableData = res.data.list

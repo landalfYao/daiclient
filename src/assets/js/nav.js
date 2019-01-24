@@ -20,11 +20,11 @@ const nav = {
     label: "银行通讯录",
     sub: [{
       label: "银行列表",
-      path: "/dayin",
+      path: "/bank",
       icon: "ios-list-box-outline"
     }, {
       label: "新增银行",
-      path: "/dayin",
+      path: "/bank_edit",
       icon: "ios-list-box-outline"
     }]
   }, {

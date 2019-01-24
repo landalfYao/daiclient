@@ -10,8 +10,8 @@ const request = require("request");
 const yzy = {
   systemName: "房贷通后台管理系统",
 
-  // NODE_API: "https://hapi.ypyzy.top/api/",
-  NODE_API: "http://localhost:3333/api/",
+  NODE_API: 'http://129.28.89.58:3334/api/',
+  // NODE_API: "http://localhost:3334/api/",
 
   pageSize: [{
       label: "每页10条",

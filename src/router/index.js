@@ -23,6 +23,9 @@ import shlist from '../pages/wxuser/sh/jdlist.vue'
 import orderInfo from '../pages/order/info.vue'
 import updateOrder from '../pages/order/update.vue'
 
+import bank from '../pages/bank/bank.vue'
+import bankEdit from '../pages/bank/bank_edit.vue'
+
 
 
 Vue.use(Router)
@@ -102,7 +105,15 @@ export default new Router({
           name: '审核列表',
           component: shlist
         },
-
+        {
+          path: '/bank',
+          name: '银行列表',
+          component: bank
+        }, {
+          path: '/bank_edit',
+          name: '编辑银行',
+          component: bankEdit
+        },
       ]
     }
   ]
