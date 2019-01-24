@@ -7,13 +7,30 @@ let list = {
       seevisable: false,
       seevisable2: false,
       seevisable3: false,
+      seevisable4: false,
+      seevisable5: false,
       multipleSelection: [],
       loading: false,
+      tempDate: '',
       tempId: '',
       tempYid: '',
       tempJid: '',
+      tempUrl: '',
       ywys: [],
       jjrs: [],
+      state: [{
+          label: '洽谈中',
+          url: 'qt'
+        },
+        {
+          label: '服务中',
+          url: 'fw'
+        },
+        {
+          label: '已完成',
+          url: 'com'
+        }
+      ],
       query: {
         wheres: '',
         fields: 'orders.*,y_user.name ywyname,agents.name jjrname',
@@ -34,15 +51,59 @@ let list = {
     that.getJDUser()
   },
   methods: {
-    printIt() {
-      let bdhtml = window.document.body.innerHTML;
-      let sprnstr = "<!--startprint-->";
-      let eprnstr = "<!--endprint-->";
-      let prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
-      prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
-      window.document.body.innerHTML = prnhtml;
-      window.print();
+    navTo(path, id) {
+      this.$router.push({
+        path: path,
+        query: {
+          id: id
+        }
+      })
     },
+    oupdateState() {
+      this.loading = true
+      this.yzy.post('order/update/state/' + this.tempUrl, {
+        id: this.tempId,
+      }, function (res) {
+        that.loading = false
+        that.seevisable5 = false
+        if (res.code == 1) {
+          that.$message({
+            type: 'success',
+            message: '添加成功'
+          })
+          that.getList()
+        } else {
+          that.$message({
+            type: 'error',
+            message: res.msg
+          })
+        }
+      })
+    },
+    //签约
+    qydo() {
+      this.loading = true
+      this.yzy.post('order/update/qt', {
+        id: this.tempId,
+        qdate: this.tempDate
+      }, function (res) {
+        that.loading = false
+        that.seevisable4 = false
+        if (res.code == 1) {
+          that.$message({
+            type: 'success',
+            message: '添加成功'
+          })
+          that.getList()
+        } else {
+          that.$message({
+            type: 'error',
+            message: res.msg
+          })
+        }
+      })
+    },
+    //获取经纪人
     getJJR() {
       if (this.jjrs.length == 0) {
         this.yzy.post('agent/get', {
@@ -174,7 +235,9 @@ let list = {
 
       this.yzy.post('order/get', this.query, function (res) {
         if (res.code == 1) {
-
+          for (let i in res.data.list) {
+            res.data.list[i].qdate = res.data.list[i].qdate.substring(0, 11)
+          }
           that.tableData = res.data.list
           that.total = res.data.total
         } else {

@@ -17,6 +17,17 @@ const nav = {
       icon: "ios-list-box-outline"
     }]
   }, {
+    label: "银行通讯录",
+    sub: [{
+      label: "银行列表",
+      path: "/dayin",
+      icon: "ios-list-box-outline"
+    }, {
+      label: "新增银行",
+      path: "/dayin",
+      icon: "ios-list-box-outline"
+    }]
+  }, {
     label: "员工管理",
     sub: [{
         label: "经纪人",

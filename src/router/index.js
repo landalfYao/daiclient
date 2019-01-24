@@ -21,7 +21,7 @@ import jdlist from '../pages/wxuser/jdlist/jdlist.vue'
 import shlist from '../pages/wxuser/sh/jdlist.vue'
 
 import orderInfo from '../pages/order/info.vue'
-
+import updateOrder from '../pages/order/update.vue'
 
 
 
@@ -86,6 +86,11 @@ export default new Router({
           path: '/order/detail',
           name: '项目详情',
           component: orderInfo
+        },
+        {
+          path: '/order/update',
+          name: '更新项目',
+          component: updateOrder
         },
         {
           path: '/jdlist',

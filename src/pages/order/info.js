@@ -27,7 +27,7 @@ let list = {
         id: this.oid
       }, function (res) {
         if (res.code == 1) {
-
+          res.data.qdate = res.data.qdate.substring(0, 11)
           that.msg = res.data
           that.setActive()
         } else {

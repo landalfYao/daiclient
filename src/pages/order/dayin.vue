@@ -49,7 +49,7 @@
       @filter-change="filterChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="id" label="订单编号"></el-table-column>
+      <el-table-column prop="id" label="订单编号" width="70"></el-table-column>
       <el-table-column prop="title" label="项目名"></el-table-column>
       <el-table-column prop="name" label="客户名"></el-table-column>
       <el-table-column prop="phone" label="客户手机"></el-table-column>
@@ -106,8 +106,24 @@
                   type="text"
                   class="w-100 text-center pa-10"
                   style="margin:0"
-                  @click="jdclick(scope.row)"
-                >更改</el-button>
+                  @click="navTo('/order/update',scope.row.id)"
+                >更改信息</el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <el-button
+                  type="text"
+                  class="w-100 text-center pa-10"
+                  style="margin:0"
+                  @click="seevisable5 = true,tempId = scope.row.id"
+                >更改状态</el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <el-button
+                  type="text"
+                  class="w-100 text-center pa-10"
+                  style="margin:0"
+                  @click="seevisable4 = true,tempId = scope.row.id"
+                >添加签约</el-button>
               </el-dropdown-item>
               <el-dropdown-item>
                 <el-button
@@ -155,6 +171,24 @@
     </el-dialog>
     <el-dialog title="项目详情" :visible.sync="seevisable3" width="800px" center>
       <oinfo :oid="tempId"></oinfo>
+    </el-dialog>
+    <el-dialog title="添加签约时间" :visible.sync="seevisable4" width="300px" center>
+      <div>选择签约时间</div>
+      <el-date-picker v-model="tempDate" style="width:100%" type="date" placeholder="选择日期"></el-date-picker>
+      <div class="panel-end ma-t30">
+        <el-button type="default" @click="seevisable4 = false">取 消</el-button>
+        <el-button type="primary" :loading="loading" @click="qydo()">确 认 选 择</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog title="更改状态" :visible.sync="seevisable5" width="300px" center>
+      <div>更改状态</div>
+      <el-select v-model="tempUrl" filterable placeholder="请选择" style="width:100%">
+        <el-option v-for="item in state" :key="item.url" :label="item.label" :value="item.url"></el-option>
+      </el-select>
+      <div class="panel-end ma-t30">
+        <el-button type="default" @click="seevisable5 = false">取 消</el-button>
+        <el-button type="primary" :loading="loading" @click="oupdateState()">确 认 选 择</el-button>
+      </div>
     </el-dialog>
   </div>
 </template>
