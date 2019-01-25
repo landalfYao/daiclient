@@ -5,8 +5,8 @@
       <el-steps finish-status="success" :active="active">
         <el-step title="审核中" :description="msg.create_time"></el-step>
         <el-step title="洽淡中" :description="msg.qt_time"></el-step>
-        <el-step title="服务中"></el-step>
-        <el-step title="已完成"></el-step>
+        <el-step title="服务中" :description="msg.fw_time"></el-step>
+        <el-step title="已完成" :description="msg.com_time"></el-step>
       </el-steps>
       <div style="margin-top:10px">
         <el-row :gutter="40">
