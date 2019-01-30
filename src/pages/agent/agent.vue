@@ -2,7 +2,6 @@
   <div>
     <div class="panel-start wrap">
       <el-input
-        placeholder="搜索"
         v-for="(item,index) in searchList"
         v-model="item.value"
         :placeholder="item.label"
@@ -57,6 +56,16 @@
             <img
               v-if="scope.row.avatar_url"
               :src="scope.row.avatar_url"
+              height="50px"
+            >
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column label="二维码">
+        <template slot-scope="scope">
+          <div>
+            <img
+              :src="scope.row.qrcode"
               height="50px"
             >
           </div>
