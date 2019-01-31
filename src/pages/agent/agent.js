@@ -9,7 +9,7 @@ let list = {
       seevisable2: false,
       multipleSelection: [],
       query: {
-        fields: 'wxuser.id wx_id,wxuser.avatar_url,wxuser.phone,agents.*,agents.qrcode',
+        fields: 'wxuser.id wx_id,wxuser.avatar_url,wxuser.phone,agents.*,wxuser.by_share,wxuser.by_scan',
         wheres: '',
         sorts: 'create_time desc',
         pageIndex: 1,

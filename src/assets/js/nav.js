@@ -52,6 +52,13 @@ const nav = {
       path: "/wxuser_list",
       icon: "ios-person-add-outline"
     }]
+  }, {
+    label: "账户",
+    sub: [{
+      label: "我的账户",
+      path: "/wallet",
+      icon: "ios-person-add-outline"
+    }]
   }, ],
 
   daili1: [{

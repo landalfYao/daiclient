@@ -8,6 +8,7 @@
         @blur="searchInput(index)"
         :key="index"
         class="filter-input"
+        style="display:inline-block;width:150px"
       ></el-input>
       <el-button-group>
         <el-button type="ghost" @click="clear()">清除</el-button>
@@ -88,7 +89,7 @@
                 <el-button
                   type="text"
                   class="w-100 text-center pa-10"
-                  v-if="scope.ywy == null || scope.ywy == ''"
+                  v-if="scope.row.ywy == null || scope.row.ywy == ''"
                   @click="seevisable = true,tempId = scope.row.id,getYwy()"
                 >分配项目</el-button>
               </el-dropdown-item>
@@ -97,7 +98,7 @@
                   type="text"
                   class="w-100 text-center pa-10"
                   style="margin:0;"
-                  v-if="scope.jjr == null || scope.jjr == ''"
+                  v-if="scope.row.jjr == null || scope.row.jjr == ''"
                   @click="seevisable2 = true,tempId = scope.row.id,getJJR()"
                 >添经纪人</el-button>
               </el-dropdown-item>
@@ -114,7 +115,7 @@
                   type="text"
                   class="w-100 text-center pa-10"
                   style="margin:0"
-                  @click="seevisable5 = true,tempId = scope.row.id"
+                  @click="seevisable5 = true,tempId = scope.row.id,formData.order_id=scope.row.id,formData.jjr_id = scope.row.jjr,formData.ywy_id=scope.row.ywy,getjy()"
                 >更改状态</el-button>
               </el-dropdown-item>
               <el-dropdown-item>
@@ -180,11 +181,24 @@
         <el-button type="primary" :loading="loading" @click="qydo()">确 认 选 择</el-button>
       </div>
     </el-dialog>
-    <el-dialog title="更改状态" :visible.sync="seevisable5" width="300px" center>
-      <div>更改状态</div>
-      <el-select v-model="tempUrl" filterable placeholder="请选择" style="width:100%">
-        <el-option v-for="item in state" :key="item.url" :label="item.label" :value="item.url"></el-option>
-      </el-select>
+    <el-dialog title="更改状态" :visible.sync="seevisable5" width="500px" center>
+      <el-form ref="form" :model="formData" label-width="150px">
+        <el-form-item label="更改状态">
+          <el-select v-model="tempUrl" filterable placeholder="请选择" style="width:100%">
+            <el-option v-for="item in state" :key="item.url" :label="item.label" :value="item.url"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="项目获得总收益(元)" v-if="tempUrl == 'com'">
+          <el-input placeholder="项目获得总收益" v-model="formData.total_fee"></el-input>
+        </el-form-item>
+        <el-form-item label="业务员获得佣金(元)" v-if="tempUrl == 'com'">
+          <el-input placeholder="业务员获得佣金" v-model="formData.ywy_get"></el-input>
+        </el-form-item>
+        <el-form-item label="经纪人获得佣金(元)" v-if="tempUrl == 'com'">
+          <el-input placeholder="经纪人获得佣金" v-model="formData.jjr_get"></el-input>
+        </el-form-item>
+      </el-form>
+
       <div class="panel-end ma-t30">
         <el-button type="default" @click="seevisable5 = false">取 消</el-button>
         <el-button type="primary" :loading="loading" @click="oupdateState()">确 认 选 择</el-button>

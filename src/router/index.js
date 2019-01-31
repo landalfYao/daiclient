@@ -26,6 +26,8 @@ import updateOrder from '../pages/order/update.vue'
 import bank from '../pages/bank/bank.vue'
 import bankEdit from '../pages/bank/bank_edit.vue'
 
+import wallet from '../pages/wallet/wallet.vue'
+
 
 
 Vue.use(Router)
@@ -42,6 +44,10 @@ export default new Router({
       name: 'main',
       component: main,
       children: [{
+          path: '/wallet',
+          name: '我的账户',
+          component: wallet
+        }, {
           path: '/user/list',
           name: '业务员列表',
           component: userList

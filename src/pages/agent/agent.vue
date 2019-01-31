@@ -61,25 +61,18 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="二维码">
-        <template slot-scope="scope">
-          <div>
-            <img
-              :src="scope.row.qrcode"
-              height="50px"
-            >
-          </div>
-        </template>
-      </el-table-column>
+
       <el-table-column prop="name" label="姓名"></el-table-column>
       <el-table-column prop="price" label="固定佣金"></el-table-column>
       <el-table-column prop="msg" label="描述"></el-table-column>
       <el-table-column prop="wallet" label="获得佣金"></el-table-column>
-      <el-table-column prop="cash" label="已取佣金"></el-table-column>
+      <!-- <el-table-column prop="cash" label="已取佣金"></el-table-column> -->
+      <el-table-column prop="by_scan" label="二维码分享"></el-table-column>
+      <el-table-column prop="by_share" label="好友分享"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="seevisable = true,tempUid = scope.row.pk_id">查看记录</el-button>
-          <el-button type="text" @click="seevisable2 = true,tempAid = scope.row.a_id">提取佣金</el-button>
+          <!-- <el-button type="text" @click="seevisable2 = true,tempAid = scope.row.a_id">提取佣金</el-button> -->
         </template>
       </el-table-column>
     </el-table>

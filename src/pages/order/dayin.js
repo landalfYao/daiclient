@@ -3,6 +3,14 @@ let list = {
 
   data() {
     return {
+      formData: {
+        order_id: '',
+        ywy_id: '',
+        jjr_id: '',
+        ywy_get: '',
+        jjr_get: '',
+        total_fee: ''
+      },
       jdr: [],
       seevisable: false,
       seevisable2: false,
@@ -16,6 +24,8 @@ let list = {
       tempYid: '',
       tempJid: '',
       tempUrl: '',
+      tempJp: '',
+      tempYp: '',
       ywys: [],
       jjrs: [],
       state: [{
@@ -42,7 +52,7 @@ let list = {
       pageSize: this.yzy.pageSize,
       total: 0,
       tableData: [],
-      searchList: this.yzy.initFilterSearch(['订单编号'], ['id'])
+      searchList: this.yzy.initFilterSearch(['订单编号', '项目名', '客户名', '客户手机', '职业', '创建时间', '签约时间', '经纪人', '业务员'], ['orders.id', 'orders.title', 'orders.name', 'orders.phone', 'orders.position', 'orders.create_time', 'orders.qdate', 'agents.name', 'y_user.name'])
     }
   },
   mounted() {
@@ -51,6 +61,32 @@ let list = {
     that.getJDUser()
   },
   methods: {
+    getjy() {
+      this.yzy.post('user/info', {
+        id: this.formData.ywy_id
+      }, function (res) {
+        if (res.code) {
+          that.formData.ywy_get = res.data.price
+          if (res.data) {
+            that.formData.ywy_get = res.data.price
+          } else {
+            that.formData.ywy_get = 0
+          }
+        }
+      })
+      this.yzy.post('agent/get/id', {
+        wx_id: this.formData.jjr_id
+      }, function (res) {
+        if (res.code) {
+          if (res.data) {
+            that.formData.jjr_get = res.data.price
+          } else {
+            that.formData.jjr_get = 0
+          }
+
+        }
+      })
+    },
     navTo(path, id) {
       this.$router.push({
         path: path,
@@ -60,10 +96,14 @@ let list = {
       })
     },
     oupdateState() {
-      this.loading = true
-      this.yzy.post('order/update/state/' + this.tempUrl, {
+      let redata = {
         id: this.tempId,
-      }, function (res) {
+      }
+      if (this.tempUrl == 'com') {
+        redata = this.formData
+      }
+      this.loading = true
+      this.yzy.post('order/update/state/' + this.tempUrl, redata, function (res) {
         that.loading = false
         that.seevisable5 = false
         if (res.code == 1) {
@@ -232,11 +272,20 @@ let list = {
       }
     },
     getList() {
-
+      let sq = ''
+      for (let i in this.wheres) {
+        if (this.wheres[i].value && this.wheres[i].value != '') {
+          sq += this.wheres[i].value + ' and '
+        }
+      }
+      this.query.wheres = sq + 'orders.is_delete = 0'
       this.yzy.post('order/get', this.query, function (res) {
         if (res.code == 1) {
           for (let i in res.data.list) {
-            res.data.list[i].qdate = res.data.list[i].qdate.substring(0, 11)
+            if (res.data.list[i].qdate) {
+              res.data.list[i].qdate = res.data.list[i].qdate.substring(0, 11)
+
+            }
           }
           that.tableData = res.data.list
           that.total = res.data.total
