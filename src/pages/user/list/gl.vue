@@ -54,7 +54,7 @@
       <el-table-column prop="username" label="用户名"></el-table-column>
       <el-table-column prop="phone" label="手机号"></el-table-column>
       <el-table-column prop="name" label="姓名"></el-table-column>
-      
+
       <el-table-column
         prop="user_state"
         label="状态"
@@ -67,12 +67,12 @@
           >{{scope.row.user_state == 'AVAILABLE' ? '可用':'禁用'}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <!-- <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="seevisable = true,tempUid = scope.row.pk_id">查看</el-button>
           <el-button type="text" @click="seevisable2 = true,tempAid = scope.row.a_id">运营数据</el-button>
         </template>
-      </el-table-column>
+      </el-table-column>-->
     </el-table>
     <div class="panel-end">
       <el-pagination
@@ -94,6 +94,6 @@
 <script>
 // import info from "../user/info/info.vue";
 let app = require("./gl.js");
-app.components = {  };
+app.components = {};
 export default app;
 </script>

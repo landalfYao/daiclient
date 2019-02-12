@@ -69,12 +69,12 @@
       <!-- <el-table-column prop="cash" label="已取佣金"></el-table-column> -->
       <el-table-column prop="by_scan" label="二维码分享"></el-table-column>
       <el-table-column prop="by_share" label="好友分享"></el-table-column>
-      <el-table-column label="操作">
+      <!-- <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="seevisable = true,tempUid = scope.row.pk_id">查看记录</el-button>
-          <!-- <el-button type="text" @click="seevisable2 = true,tempAid = scope.row.a_id">提取佣金</el-button> -->
+          <el-button type="text" @click="seevisable2 = true,tempAid = scope.row.a_id">提取佣金</el-button>
         </template>
-      </el-table-column>
+      </el-table-column>-->
     </el-table>
     <div class="panel-end">
       <el-pagination

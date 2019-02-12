@@ -70,12 +70,12 @@
         </template>
       </el-table-column>
       <!-- <el-table-column prop="person_num" label="客户数"></el-table-column> -->
-      <el-table-column label="操作">
+      <!-- <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="seevisable = true,tempUid = scope.row.pk_id">查看记录</el-button>
-          <!-- <el-button type="text" @click="seevisable2 = true,tempAid = scope.row.a_id">更改信息</el-button> -->
+          <el-button type="text" @click="seevisable2 = true,tempAid = scope.row.a_id">更改信息</el-button>
         </template>
-      </el-table-column>
+      </el-table-column>-->
     </el-table>
     <div class="panel-end">
       <el-pagination
