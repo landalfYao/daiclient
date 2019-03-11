@@ -1,3 +1,5 @@
+let XLSX = require('xlsx');
+let FileSaver = require('file-saver');
 let that;
 let list = {
 
@@ -31,6 +33,24 @@ let list = {
         path: path
       })
     },
+    exportExcel() {
+      /* generate workbook object from table */
+      var wb = XLSX.utils.table_to_book(document.querySelector('#out-table'))
+      /* get binary string as output */
+      var wbout = XLSX.write(wb, {
+        bookType: 'xlsx',
+        bookSST: true,
+        type: 'array'
+      })
+      try {
+        FileSaver.saveAs(new Blob([wbout], {
+          type: 'application/octet-stream'
+        }), 'sheetjs.xlsx')
+      } catch (e) {
+        if (typeof console !== 'undefined') console.log(e, wbout)
+      }
+      return wbout
+    },
     getList() {
       let sq = ''
       for (let i in this.wheres) {
@@ -39,7 +59,7 @@ let list = {
         }
       }
 
-      this.query.wheres = sq + 'dtype = 2 and is_delete = 0'
+      this.query.wheres = sq + 'dtype = 2 and is_delete = 0 '
       this.yzy.post('user/get', this.query, function (res) {
         if (res.code == 1) {
 

@@ -21,7 +21,7 @@ let list = {
       pageSize: this.yzy.pageSize,
       total: 0,
       tableData: [],
-      searchList: this.yzy.initFilterSearch(['ID'], ['id'])
+      searchList: this.yzy.initFilterSearch(['ID', '手机号', '昵称'], ['id', 'phone', 'nick_name'])
     }
   },
   mounted() {
@@ -62,11 +62,12 @@ let list = {
           sq += this.wheres[i].value + ' and '
         }
       }
-      if (sq != '') {
-        this.query.wheres = sq.substring(0, sq.length - 4)
-      } else {
-        this.query.wheres = ''
-      }
+      this.query.wheres = sq + ' phone like "1%" '
+      // if (sq != '') {
+      //   this.query.wheres = sq.substring(0, sq.length - 4)
+      // } else {
+      //   this.query.wheres = ''
+      // }
       this.yzy.post('wx/user/get', this.query, function (res) {
         if (res.code == 1) {
 

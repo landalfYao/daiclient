@@ -21,7 +21,7 @@
       <div class="panel-between item-center">
         <el-button-group>
           <!-- <el-button type="danger" plain icon="el-icon-delete"></el-button> -->
-          <!-- <el-button type="primary" plain @click="plfenpei()">批量分配</el-button> -->
+          <el-button type="primary" plain @click="exportExcel()">导出数据</el-button>
         </el-button-group>
         <el-select
           v-model="query.pageSize"
@@ -40,6 +40,7 @@
     </div>
 
     <el-table
+      id="out-table"
       :data="tableData"
       ref="multipleTable"
       tooltip-effect="dark"
@@ -48,9 +49,10 @@
       style="width: 100%;margin-top:15px"
       @selection-change="handleSelectionChange"
       @filter-change="filterChange"
+      @sort-change="sortChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="id" label="订单编号" width="70"></el-table-column>
+      <el-table-column prop="id" label="编号" sortable column-key="id" width="70"></el-table-column>
       <el-table-column prop="title" label="项目名"></el-table-column>
       <el-table-column prop="name" label="客户名"></el-table-column>
       <el-table-column prop="phone" label="客户手机"></el-table-column>

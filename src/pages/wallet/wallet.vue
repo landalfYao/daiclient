@@ -21,7 +21,30 @@
         {{totalfr-msg.wallets || 0}}
       </div>
     </el-card>
+
+    <div style="margin-top:15px">
+      <div class="panel-between item-center">
+        <el-button-group>
+          <el-button type="primary" plain @click="exportExcel()">导出数据</el-button>
+        </el-button-group>
+        <el-select
+          v-model="query.pageSize"
+          placeholder="请选择"
+          style="width:150px"
+          @change="handleSizeChange"
+        >
+          <el-option
+            v-for="item in pageSize"
+            :key="item.label"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+      </div>
+    </div>
+
     <el-table
+      id="out-table"
       :data="tableData"
       ref="multipleTable"
       tooltip-effect="dark"

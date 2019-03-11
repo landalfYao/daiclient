@@ -8,13 +8,12 @@
     <el-form-item label="用户名">
       <el-input v-model="formData.username" placeholder="不小于4位"></el-input>
     </el-form-item>
-    <el-form-item label="密码">
+    <!-- <el-form-item label="密码">
       <el-input v-model="formData.password" type="password" placeholder="不小于8位"></el-input>
     </el-form-item>
     <el-form-item label="确认密码">
       <el-input v-model="formData.checkPwd" type="password" placeholder="确认密码"></el-input>
-    </el-form-item>
-
+    </el-form-item>-->
     <el-form-item label="姓名">
       <el-input v-model="formData.name" placeholder="姓名"></el-input>
     </el-form-item>

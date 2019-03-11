@@ -4,8 +4,8 @@ let list = {
     return {
       formData: {
         username: '',
-        password: '',
-        checkPwd: '',
+        password: 'qwe123123',
+        checkPwd: 'qwe123123',
         dtype: 2,
         name: '',
         phone: '',
@@ -14,8 +14,8 @@ let list = {
       },
       formData2: {
         username: '',
-        password: '',
-        checkPwd: '',
+        password: 'qwe123123',
+        checkPwd: 'qwe123123',
         dtype: 2,
         name: '',
         phone: '',

@@ -14,11 +14,13 @@
   },
   "dependencies": {
     "element-ui": "^2.4.11",
+    "file-saver": "^2.0.1",
     "iview": "^3.2.0-rc.2",
     "request": "^2.88.0",
     "vue": "^2.5.2",
     "vue-print-nb": "^1.0.3",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "xlsx": "^0.14.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

@@ -14,6 +14,8 @@ import {
   Timeline,
   TimelineItem
 } from 'iview';
+// import FileSaver from 'file-saver'
+// import XLSX from 'xlsx'
 import Print from 'vue-print-nb'
 Vue.use(Print);
 Vue.config.productionTip = false
@@ -25,8 +27,11 @@ Vue.component('MenuItem', MenuItem);
 Vue.component('Icon', Icon);
 Vue.component('Timeline', Timeline);
 Vue.component('TimelineItem', TimelineItem);
+
 Vue.use(ElementUI);
 
+// Vue.use(XLSX);
+// Vue.use(FileSaver);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

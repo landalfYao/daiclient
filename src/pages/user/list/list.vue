@@ -23,6 +23,7 @@
           <el-button type="success" plain @click="changeUserState('available')">启用用户</el-button>
           <el-button type="warning" plain @click="changeUserState('disable')">禁用用户</el-button>
           <el-button type="primary" plain @click="navTo('/register')">新增业务员</el-button>
+          <el-button type="primary" plain @click="exportExcel()">导出数据</el-button>
         </el-button-group>
         <el-select
           v-model="query.pageSize"
@@ -41,6 +42,7 @@
     </div>
 
     <el-table
+      id="out-table"
       :data="tableData"
       ref="multipleTable"
       tooltip-effect="dark"
