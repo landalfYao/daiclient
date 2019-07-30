@@ -139,6 +139,12 @@
               <el-col :span="14" class="bold">{{msg.com_time}}</el-col>
             </el-row>
           </el-col>
+          <el-col :span="12" style="margin-top:20px">
+            <el-row :gutter="20">
+              <el-col :span="10">中断时间</el-col>
+              <el-col :span="14" class="bold">{{msg.cancel_time}}</el-col>
+            </el-row>
+          </el-col>
         </el-row>
         <div class="border-b ma-t30"></div>
         <el-row :gutter="40">

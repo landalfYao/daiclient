@@ -17,6 +17,17 @@ const nav = {
       icon: "ios-list-box-outline"
     }]
   }, {
+    label: "轮播图管理",
+    sub: [{
+      label: "轮播图列表",
+      path: "/carousel",
+      icon: "ios-list-box-outline"
+    }, {
+      label: "新增轮播图",
+      path: "/carouselEdit",
+      icon: "ios-list-box-outline"
+    }]
+  },{
     label: "银行通讯录",
     sub: [{
       label: "银行列表",
@@ -59,7 +70,18 @@ const nav = {
       path: "/wallet",
       icon: "ios-person-add-outline"
     }]
-  }, ],
+  }, {
+    label: "新闻管理",
+    sub: [{
+      label: "新闻列表",
+      path: "/rich",
+      icon: "ios-list-box-outline"
+    }, {
+      label: "新增新闻",
+      path: "/richEdit",
+      icon: "ios-list-box-outline"
+    }]
+  },],
 
   daili1: [{
       label: "总览",

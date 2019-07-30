@@ -28,6 +28,11 @@ import bankEdit from '../pages/bank/bank_edit.vue'
 
 import wallet from '../pages/wallet/wallet.vue'
 
+import carouselEdit from '../pages/carousel/carouselEdit.vue'
+import carousel from '../pages/carousel/carousel.vue'
+
+import rich from '../pages/rich/richtext.vue'
+import richEdit from '../pages/rich/richtext_edit.vue'
 
 
 Vue.use(Router)
@@ -119,6 +124,24 @@ export default new Router({
           path: '/bank_edit',
           name: '编辑银行',
           component: bankEdit
+        },{
+          path: '/carouselEdit',
+          name: '编辑轮播图',
+          component: carouselEdit
+        },{
+          path: '/carousel',
+          name: '轮播图列表',
+          component: carousel
+        },
+        {
+          path: '/rich',
+          name: '新闻列表',
+          component: rich
+        },
+        {
+          path: '/richEdit',
+          name: '新增新闻',
+          component: richEdit
         },
       ]
     }

@@ -9,7 +9,6 @@ let list = {
       seevisable2: false,
       multipleSelection: [],
       query: {
-        fields: 'wxuser.id wx_id,wxuser.avatar_url,wxuser.phone,agents.*,wxuser.by_share,wxuser.by_scan',
         wheres: '',
         sorts: 'create_time desc',
         pageIndex: 1,
@@ -19,7 +18,7 @@ let list = {
       pageSize: this.yzy.pageSize,
       total: 0,
       tableData: [],
-      searchList: this.yzy.initFilterSearch(['ID', '用户名', '用户类型', '手机号'], ['pk_id', 'username', 'dtype', 'phone'])
+      searchList: this.yzy.initFilterSearch(['ID'], ['id'])
     }
   },
   mounted() {
@@ -27,6 +26,14 @@ let list = {
     that.getList()
   },
   methods: {
+    navTo(path, id) {
+      this.$router.push({
+        path: path,
+        query: {
+          id: id
+        }
+      })
+    },
     getList() {
       let sq = ''
       for (let i in this.wheres) {
@@ -34,9 +41,10 @@ let list = {
           sq += this.wheres[i].value + ' and '
         }
       }
-      this.query.wheres = sq + 'wxuser.id = agents.wx_id '
-      this.yzy.post('agent/get', this.query, function (res) {
+
+      this.yzy.post('news/get', this.query, function (res) {
         if (res.code == 1) {
+
           that.tableData = res.data.list
           that.total = res.data.total
         } else {
@@ -47,41 +55,7 @@ let list = {
         }
       })
     },
-    filterChange(e) {
-      let temp = -1
-      let arr = this.wheres
-      let resArr = e['user_state']
 
-      for (let i in resArr) {
-        if (resArr[i].indexOf("'") < 0) {
-          resArr[i] = "'" + resArr[i] + "'"
-        }
-      }
-
-      let sq = 'user_state in (' + resArr + ')'
-      for (let i in arr) {
-        if (arr[i].label == 'user_state') {
-          temp = i
-        }
-      }
-
-      if (resArr.length == 0) {
-        if (temp != -1) {
-          this.wheres.splice(temp, 1)
-        }
-      } else {
-        if (temp == -1) {
-          this.wheres.push({
-            label: 'user_state',
-            value: sq
-          })
-        } else {
-          this.wheres[temp].value = sq
-        }
-      }
-
-      this.getList()
-    },
     changeUserState(state) {
 
       if (state == 'disable') {
@@ -128,25 +102,6 @@ let list = {
         }
       })
     },
-    del(){
-
-      this.yzy.post('agent/del', {
-        ids:this.filterIds().toString()
-      }, function (res) {
-        if (res.code == 1) {
-          that.$message({
-            type: 'success',
-            message: res.msg
-          })
-          that.getList()
-        } else {
-          that.$message({
-            type: 'error',
-            message: res.msg
-          })
-        }
-      })
-    },
     searchInput(index) {
       this.wheres = this.yzy.filterSearch(this.searchList[index], this.wheres)
     },
@@ -161,8 +116,14 @@ let list = {
       }
       that.getList()
     },
-    handleSelectionChange(val) {
+    handleSelectionChangeYid(val) {
       this.multipleSelection = val;
+      if (val.length > 0) {
+        sessionStorage.setItem("yid", val[0].id)
+      } else {
+        sessionStorage.removeItem("yid")
+      }
+
     },
     handleSizeChange(e) {
       this.getList()

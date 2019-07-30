@@ -22,6 +22,15 @@
         <el-button-group>
           <!-- <el-button type="danger" plain icon="el-icon-delete"></el-button> -->
           <el-button type="primary" plain @click="exportExcel()">导出数据</el-button>
+          <el-date-picker
+            v-model="dataPic"
+            @change="dataPicker"
+            value-format="yyyy-MM-dd"
+            type="daterange"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期">
+          </el-date-picker>
         </el-button-group>
         <el-select
           v-model="query.pageSize"
@@ -177,6 +186,7 @@
     </el-dialog>
     <el-dialog title="添加签约时间" :visible.sync="seevisable4" width="300px" center>
       <div>选择签约时间</div>
+      <!-- <el-input v-model="tempDate" style="width:100%" placeholder="输入日期"></el-input> -->
       <el-date-picker v-model="tempDate" style="width:100%" type="date" placeholder="选择日期"></el-date-picker>
       <div class="panel-end ma-t30">
         <el-button type="default" @click="seevisable4 = false">取 消</el-button>

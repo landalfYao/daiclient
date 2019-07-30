@@ -30,6 +30,7 @@ let list = {
       tempYp: '',
       ywys: [],
       jjrs: [],
+      dataPic:'',
       state: [{
           label: '洽谈中',
           url: 'qt'
@@ -41,6 +42,10 @@ let list = {
         {
           label: '已完成',
           url: 'com'
+        },
+        {
+          label: '已中断',
+          url: 'cancel'
         }
       ],
       query: {
@@ -54,7 +59,7 @@ let list = {
       pageSize: this.yzy.pageSize,
       total: 0,
       tableData: [],
-      searchList: this.yzy.initFilterSearch(['订单编号', '项目名', '客户名', '客户手机', '职业', '创建时间', '签约时间', '经纪人', '业务员'], ['orders.id', 'orders.title', 'orders.name', 'orders.phone', 'orders.position', 'orders.create_time', 'orders.qdate', 'agents.name', 'y_user.name'])
+      searchList: this.yzy.initFilterSearch(['订单编号', '项目名', '客户名', '客户手机', '职业', '创建时间', '签约时间', '经纪人', '业务员','状态'], ['orders.id', 'orders.title', 'orders.name', 'orders.phone', 'orders.position', 'orders.create_time', 'orders.qdate', 'agents.name', 'y_user.name','orders.state'])
     }
   },
   mounted() {
@@ -63,6 +68,12 @@ let list = {
     that.getJDUser()
   },
   methods: {
+    dataPicker(e){
+      let ad = new Date(e[0])
+      // console.log(ad.getFullYear()+'-'+(ad.getMonth()+1) +'-'+ad.getDate())
+      // console.log(e)
+      this.getList()
+    },
     exportExcel() {
       /* generate workbook object from table */
       var wb = XLSX.utils.table_to_book(document.querySelector('#out-table'))
@@ -299,6 +310,9 @@ let list = {
         }
       }
       this.query.wheres = sq + 'orders.is_delete = 0'
+      if(this.dataPic.length>0){
+        this.query.wheres+=' and qdate between "'+this.dataPic[0]+'" and "'+this.dataPic[1] +'"'
+      }
       this.yzy.post('order/get', this.query, function (res) {
         if (res.code == 1) {
           for (let i in res.data.list) {
@@ -421,6 +435,7 @@ let list = {
           this.wheres[i].value = ''
         }
       }
+      that.dataPic = []
       that.getList()
     },
     handleSelectionChange(val) {
