@@ -18,7 +18,7 @@ let list = {
       pageSize: this.yzy.pageSize,
       total: 0,
       tableData: [],
-      searchList: this.yzy.initFilterSearch(['ID'], ['id'])
+      searchList: this.yzy.initFilterSearch([], [])
     }
   },
   mounted() {
@@ -88,6 +88,24 @@ let list = {
     },
     update(url, data) {
       this.yzy.post(url, data, function (res) {
+        if (res.code == 1) {
+          that.$message({
+            type: 'success',
+            message: res.msg
+          })
+          that.getList()
+        } else {
+          that.$message({
+            type: 'error',
+            message: res.msg
+          })
+        }
+      })
+    },
+    del(){
+      this.yzy.post('bank/del', {
+        ids:this.filterIds().toString()
+      }, function (res) {
         if (res.code == 1) {
           that.$message({
             type: 'success',

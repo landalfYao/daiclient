@@ -19,7 +19,7 @@ let list = {
       pageSize: this.yzy.pageSize,
       total: 0,
       tableData: [],
-      searchList: this.yzy.initFilterSearch(['ID', '用户名', '用户类型', '手机号'], ['pk_id', 'username', 'dtype', 'phone'])
+      searchList: this.yzy.initFilterSearch(['ID', '姓名'], ['agents.id', 'agents.name'])
     }
   },
   mounted() {
@@ -129,7 +129,6 @@ let list = {
       })
     },
     del(){
-
       this.yzy.post('agent/del', {
         ids:this.filterIds().toString()
       }, function (res) {

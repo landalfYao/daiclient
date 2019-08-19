@@ -100,7 +100,7 @@ let list = {
     filterIds() {
       let arr = []
       for (let i in this.multipleSelection) {
-        arr.push(this.multipleSelection[i].id)
+        arr.push(this.multipleSelection[i].pk_id)
       }
       return arr
     },

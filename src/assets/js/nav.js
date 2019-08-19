@@ -50,11 +50,11 @@ const nav = {
         path: "/user/list",
         icon: "ios-person-add-outline"
       },
-      {
-        label: "管理员",
-        path: "/user/gl",
-        icon: "ios-person-add-outline"
-      }
+      // {
+      //   label: "管理员",
+      //   path: "/user/gl",
+      //   icon: "ios-person-add-outline"
+      // }
     ]
   }, {
     label: "微信用户",

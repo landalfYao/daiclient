@@ -8,7 +8,7 @@ const ivkey = Buffer.from("15464336451324535212156486623224", "utf8").toString(
 const request = require("request");
 
 const yzy = {
-  systemName: "房贷通后台管理系统",
+  systemName: "融师兄后台管理系统",
 
   NODE_API: 'https://fdt.landalf.cn/api/',
   // NODE_API: "http://localhost:3334/api/",

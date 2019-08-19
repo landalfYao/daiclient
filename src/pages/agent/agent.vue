@@ -49,10 +49,10 @@
       @filter-change="filterChange"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column label="序号" width="55">
+      <el-table-column label="ID" width="55">
         <template slot-scope="scope">
           <div>
-            {{scope.$index+1}}
+            {{scope.row.wx_id}}
            
           </div>
         </template>
@@ -77,7 +77,7 @@
       <el-table-column prop="wallet" label="获得佣金"></el-table-column>
       <!-- <el-table-column prop="cash" label="已取佣金"></el-table-column> -->
       <el-table-column prop="by_scan" label="二维码分享"></el-table-column>
-      <el-table-column prop="by_share" label="好友分享"></el-table-column>
+      <!-- <el-table-column prop="by_share" label="好友分享"></el-table-column> -->
       <!-- <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="seevisable = true,tempUid = scope.row.pk_id">查看记录</el-button>

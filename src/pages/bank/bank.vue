@@ -9,17 +9,17 @@
         :key="index"
         class="filter-input"
       ></el-input>
-      <el-button-group>
+      <!-- <el-button-group>
         <el-button type="ghost" @click="clear()">清除</el-button>
         <el-button type="primary" @click="search()">搜索</el-button>
         <el-button type="ghost" @click="getList()">刷新</el-button>
-      </el-button-group>
+      </el-button-group> -->
     </div>
 
     <div style="margin-top:15px">
       <div class="panel-between item-center">
         <el-button-group>
-          <el-button type="danger" plain icon="el-icon-delete"></el-button>
+          <el-button type="danger" plain icon="el-icon-delete" @click="del()"></el-button>
           <el-button type="primary" plain @click="navTo('/bank_edit')">新增银行</el-button>
         </el-button-group>
         <el-select
@@ -48,7 +48,7 @@
       @selection-change="handleSelectionChangeYid"
     >
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="sort" label="序号"></el-table-column>
+      <el-table-column prop="id" label="ID"></el-table-column>
       <el-table-column prop="icon" label="LOGO">
         <template slot-scope="scope">
           <img :src="scope.row.icon" height="50px" alt>

@@ -187,7 +187,7 @@
     <el-dialog title="添加签约时间" :visible.sync="seevisable4" width="300px" center>
       <div>选择签约时间</div>
       <!-- <el-input v-model="tempDate" style="width:100%" placeholder="输入日期"></el-input> -->
-      <el-date-picker v-model="tempDate" style="width:100%" type="date" placeholder="选择日期"></el-date-picker>
+      <el-date-picker v-model="tempDate" style="width:100%" value-format="yyyy-MM-dd" type="date" placeholder="选择日期"></el-date-picker>
       <div class="panel-end ma-t30">
         <el-button type="default" @click="seevisable4 = false">取 消</el-button>
         <el-button type="primary" :loading="loading" @click="qydo()">确 认 选 择</el-button>
