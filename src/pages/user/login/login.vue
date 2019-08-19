@@ -12,7 +12,7 @@
                 <el-form-item label="账号类型" >
                     <el-select v-model="formData.type" placeholder="请选择" style="width:100%">
                         <el-option label="管理员" value="admin"> </el-option>
-                        <el-option label="经济人" value="jjr"> </el-option>
+                        <el-option label="经纪人" value="jjr"> </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="账号" prop="age">

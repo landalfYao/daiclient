@@ -6,12 +6,14 @@ let list = {
       formData:{
         oldPwd:'',
         newPwd:'',
-        confirmPwd:''
+        confirmPwd:'',
+        type:''
       },
       formData2:{
         oldPwd:'',
         newPwd:'',
-        confirmPwd:''
+        confirmPwd:'',
+        type:''
       },
       loading:false
     }
@@ -24,9 +26,11 @@ let list = {
     onSubmit(){
       this.loading = true
       let formData = {
-        oldPwd:this.yzy.encrypt(this.formData.oldPwd),
-        newPwd:this.yzy.encrypt(this.formData.newPwd),
-        confirmPwd:this.yzy.encrypt(this.formData.confirmPwd),
+        oldPwd:sessionStorage.getItem('username') == 'admin' ? this.yzy.encrypt(this.formData.oldPwd):this.formData.oldPwd,
+        newPwd:sessionStorage.getItem('username') == 'admin' ? this.yzy.encrypt(this.formData.newPwd):this.formData.newPwd,
+        confirmPwd:sessionStorage.getItem('username') == 'admin' ? this.yzy.encrypt(this.formData.confirmPwd):this.formData.confirmPwd,
+        type:sessionStorage.getItem('username') == 'admin' ? 'ak':'jjr',
+        uid:sessionStorage.getItem('uid')
       }
       this.yzy.post('user/update/pwd',formData,function(res){
         that.loading = false

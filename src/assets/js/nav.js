@@ -86,6 +86,10 @@ const nav = {
   item2:[{
     label: "我的客户",
     sub: [{
+      label: "我的项目",
+      path: "/dayin",
+      icon: "ios-list-box-outline"
+    },{
       label: "客户列表",
       path: "/pagent",
       icon: "ios-podium-outline"

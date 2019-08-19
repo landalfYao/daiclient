@@ -309,7 +309,10 @@ let list = {
           sq += this.wheres[i].value + ' and '
         }
       }
-      this.query.wheres = sq + 'orders.is_delete = 0'
+      this.query.wheres = sq + 'orders.is_delete = 0 '
+      if (sessionStorage.getItem('username') != 'admin'){
+        this.query.wheres += ' and orders.jjr='+sessionStorage.getItem('uid')
+      }
       if(this.dataPic.length>0){
         this.query.wheres+=' and qdate between "'+this.dataPic[0]+'" and "'+this.dataPic[1] +'"'
       }

@@ -170,4 +170,4 @@ let list = {
     },
   }
 }
-module.exports = list
+export default list
