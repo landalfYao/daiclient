@@ -7,6 +7,7 @@ let list = {
       tempAid: '',
       seevisable: false,
       seevisable2: false,
+      centerDialogVisible:false,
       multipleSelection: [],
       query: {
         fields: 'wxuser.id wx_id,wxuser.avatar_url,wxuser.phone,agents.*,wxuser.by_share,wxuser.by_scan',
@@ -19,7 +20,15 @@ let list = {
       pageSize: this.yzy.pageSize,
       total: 0,
       tableData: [],
-      searchList: this.yzy.initFilterSearch(['ID', '用户名', '用户类型', '手机号'], ['pk_id', 'username', 'dtype', 'phone'])
+      searchList: this.yzy.initFilterSearch(['ID', '用户名', '用户类型', '手机号'], ['pk_id', 'username', 'dtype', 'phone']),
+      formData:{
+        wx_id: '',
+        name: '',
+        price: '',
+        msg: '',
+        username:'',
+        pwd:''
+      }
     }
   },
   mounted() {
@@ -27,6 +36,32 @@ let list = {
     that.getList()
   },
   methods: {
+    submitAgents(){
+      if (this.formData.wx_id != '' && this.formData.name != '' && this.formData.price != '' && this.formData.msg != '') {
+        this.loading = true
+        this.yzy.post('agent/update', this.formData, function (res) {
+          that.centerDialogVisible = false
+          that.loading = false
+          if (res.code) {
+
+            that.$message({
+              type: 'success',
+              message: '修改成功'
+            })
+          } else {
+            that.$message({
+              type: 'error',
+              message: res.msg
+            })
+          }
+        })
+      } else {
+        that.$message({
+          type: 'error',
+          message: '所有信息必填'
+        })
+      }
+    },
     getList() {
       let sq = ''
       for (let i in this.wheres) {
@@ -129,7 +164,6 @@ let list = {
       })
     },
     del(){
-
       this.yzy.post('agent/del', {
         ids:this.filterIds().toString()
       }, function (res) {

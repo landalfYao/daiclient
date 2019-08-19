@@ -6,7 +6,9 @@ let list = {
         wx_id: '',
         name: '',
         price: '',
-        msg: ''
+        msg: '',
+        username:'',
+        pwd:''
       },
       loading: false,
       centerDialogVisible: false,

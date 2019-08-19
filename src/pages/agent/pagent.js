@@ -1,16 +1,21 @@
 let that;
 let list = {
-
   data() {
     return {
-      tempUid: '',
-      tempAid: '',
-      seevisable: false,
-      seevisable2: false,
+      formData: {
+        wx_id: '',
+        name: '',
+        price: '',
+        msg: '',
+        username:'',
+        pwd:''
+      },
+      loading: false,
+      centerDialogVisible: false,
       multipleSelection: [],
       query: {
         wheres: '',
-        sorts: 'sort asc',
+        sorts: 'wx.create_time desc',
         pageIndex: 1,
         pageSize: 10
       },
@@ -18,7 +23,7 @@ let list = {
       pageSize: this.yzy.pageSize,
       total: 0,
       tableData: [],
-      searchList: this.yzy.initFilterSearch(['ID'], ['id'])
+      searchList: this.yzy.initFilterSearch(['ID', '手机号', '昵称'], ['wx.id', 'wx.phone', 'wx.nick_name'])
     }
   },
   mounted() {
@@ -26,25 +31,48 @@ let list = {
     that.getList()
   },
   methods: {
-    navTo(path, id) {
-      this.$router.push({
-        path: path,
-        query: {
-          id: id
-        }
-      })
+    submitAgents() {
+      if (this.formData.wx_id != '' && this.formData.name != '' && this.formData.price != '' && this.formData.msg != '') {
+        this.loading = true
+        this.yzy.post('agent/add', this.formData, function (res) {
+          that.centerDialogVisible = false
+          that.loading = false
+          if (res.code) {
+
+            that.$message({
+              type: 'success',
+              message: '添加成功'
+            })
+          } else {
+            that.$message({
+              type: 'error',
+              message: res.msg
+            })
+          }
+        })
+      } else {
+        that.$message({
+          type: 'error',
+          message: '所有信息必填'
+        })
+      }
     },
     getList() {
+
       let sq = ''
       for (let i in this.wheres) {
         if (this.wheres[i].value && this.wheres[i].value != '') {
           sq += this.wheres[i].value + ' and '
         }
       }
-
-      this.yzy.post('carousel/get', this.query, function (res) {
+      this.query.wheres = sq + '  wx.id=ss.wx_id and ss.sid='+sessionStorage.getItem('uid')
+      // if (sq != '') {
+      //   this.query.wheres = sq.substring(0, sq.length - 4)
+      // } else {
+      //   this.query.wheres = ''
+      // }
+      this.yzy.post('agent/kh', this.query, function (res) {
         if (res.code == 1) {
-
           that.tableData = res.data.list
           that.total = res.data.total
         } else {
@@ -55,7 +83,41 @@ let list = {
         }
       })
     },
+    filterChange(e) {
+      let temp = -1
+      let arr = this.wheres
+      let resArr = e['user_state']
 
+      for (let i in resArr) {
+        if (resArr[i].indexOf("'") < 0) {
+          resArr[i] = "'" + resArr[i] + "'"
+        }
+      }
+
+      let sq = 'user_state in (' + resArr + ')'
+      for (let i in arr) {
+        if (arr[i].label == 'user_state') {
+          temp = i
+        }
+      }
+
+      if (resArr.length == 0) {
+        if (temp != -1) {
+          this.wheres.splice(temp, 1)
+        }
+      } else {
+        if (temp == -1) {
+          this.wheres.push({
+            label: 'user_state',
+            value: sq
+          })
+        } else {
+          this.wheres[temp].value = sq
+        }
+      }
+
+      this.getList()
+    },
     changeUserState(state) {
 
       if (state == 'disable') {
@@ -82,27 +144,9 @@ let list = {
     filterIds() {
       let arr = []
       for (let i in this.multipleSelection) {
-        arr.push(this.multipleSelection[i].id)
+        arr.push(this.multipleSelection[i].pk_id)
       }
       return arr
-    },
-    del(){
-      this.yzy.post('carousel/del', {
-        ids:this.filterIds().toString()
-      }, function (res) {
-        if (res.code == 1) {
-          that.$message({
-            type: 'success',
-            message: res.msg
-          })
-          that.getList()
-        } else {
-          that.$message({
-            type: 'error',
-            message: res.msg
-          })
-        }
-      })
     },
     update(url, data) {
       this.yzy.post(url, data, function (res) {
@@ -134,14 +178,8 @@ let list = {
       }
       that.getList()
     },
-    handleSelectionChangeYid(val) {
+    handleSelectionChange(val) {
       this.multipleSelection = val;
-      if (val.length > 0) {
-        sessionStorage.setItem("yid", val[0].id)
-      } else {
-        sessionStorage.removeItem("yid")
-      }
-
     },
     handleSizeChange(e) {
       this.getList()

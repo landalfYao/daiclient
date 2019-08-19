@@ -78,12 +78,11 @@
       <!-- <el-table-column prop="cash" label="已取佣金"></el-table-column> -->
       <el-table-column prop="by_scan" label="二维码分享"></el-table-column>
       <el-table-column prop="by_share" label="好友分享"></el-table-column>
-      <!-- <el-table-column label="操作">
+      <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button type="text" @click="seevisable = true,tempUid = scope.row.pk_id">查看记录</el-button>
-          <el-button type="text" @click="seevisable2 = true,tempAid = scope.row.a_id">提取佣金</el-button>
+          <el-button type="text" @click="centerDialogVisible = true,formData = scope.row">修改</el-button>
         </template>
-      </el-table-column>-->
+      </el-table-column>
     </el-table>
     <div class="panel-end">
       <el-pagination
@@ -98,6 +97,29 @@
     </div>
     <el-dialog title="信息" :visible.sync="seevisable" width="1000" center>
       <info :uid="tempUid"></info>
+    </el-dialog>
+    <el-dialog title="修改经纪人" :visible.sync="centerDialogVisible" width="400px" center>
+      <el-form ref="form" :model="formData" label-position="top" style="margin:auto;">
+        <el-form-item label="姓名">
+          <el-input v-model="formData.name" placeholder="姓名"></el-input>
+        </el-form-item>
+        <el-form-item label="固定佣金">
+          <el-input v-model="formData.price" placeholder="固定佣金(元)"></el-input>
+        </el-form-item>
+        <el-form-item label="描述">
+          <el-input v-model="formData.msg" placeholder="描述"></el-input>
+        </el-form-item>
+        <el-form-item label="登录名">
+          <el-input v-model="formData.username" placeholder="登录名"></el-input>
+        </el-form-item>
+        <el-form-item label="登录密码">
+          <el-input v-model="formData.pwd" placeholder="登录密码"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="centerDialogVisible = false">取 消</el-button>
+          <el-button :loading="loading" type="primary" @click="submitAgents()">确 认 提 交</el-button>
+        </el-form-item>
+      </el-form>
     </el-dialog>
   </div>
 </template>

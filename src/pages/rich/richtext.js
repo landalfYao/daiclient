@@ -86,6 +86,24 @@ let list = {
       }
       return arr
     },
+    del(){
+      this.yzy.post('news/del', {
+        ids:this.filterIds().toString()
+      }, function (res) {
+        if (res.code == 1) {
+          that.$message({
+            type: 'success',
+            message: res.msg
+          })
+          that.getList()
+        } else {
+          that.$message({
+            type: 'error',
+            message: res.msg
+          })
+        }
+      })
+    },
     update(url, data) {
       this.yzy.post(url, data, function (res) {
         if (res.code == 1) {

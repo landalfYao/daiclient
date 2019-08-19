@@ -19,7 +19,7 @@
     <div style="margin-top:15px">
       <div class="panel-between item-center">
         <el-button-group>
-          <el-button type="danger" plain icon="el-icon-delete"></el-button>
+          <el-button type="danger" plain icon="el-icon-delete" @click="del()"></el-button>
         </el-button-group>
         <el-select
           v-model="query.pageSize"
