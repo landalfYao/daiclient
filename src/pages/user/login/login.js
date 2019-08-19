@@ -6,7 +6,8 @@ let login = {
       loading: false,
       formData: {
         username: '',
-        password: ''
+        password: '',
+        type:''
       }
     }
   },
@@ -32,7 +33,8 @@ let login = {
         this.loading = true
         this.yzy.http('user/login', 'POST', {
           username: this.formData.username,
-          password: this.yzy.encrypt(this.formData.password)
+          password: this.formData.type == 'admin' ? this.yzy.encrypt(this.formData.password):this.formData.password,
+          type: this.formData.type
         }, function (res) {
           that.loading = false
           if (res.code == 1) {
@@ -41,7 +43,7 @@ let login = {
               message: res.msg
             })
             sessionStorage.setItem('token', res.token)
-            sessionStorage.setItem('uid', res.data.pk_id)
+            sessionStorage.setItem('uid', res.data.pk_id || res.data.wx_id)
             sessionStorage.setItem('userInfo', res.data)
             sessionStorage.setItem('username', res.data.username)
             sessionStorage.setItem('pwd', res.data.pwd)

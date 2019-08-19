@@ -1,18 +1,21 @@
 let that;
 let list = {
-
   data() {
     return {
-      tempUid: '',
-      tempAid: '',
-      seevisable: false,
-      seevisable2: false,
-      centerDialogVisible:false,
+      formData: {
+        wx_id: '',
+        name: '',
+        price: '',
+        msg: '',
+        username:'',
+        pwd:''
+      },
+      loading: false,
+      centerDialogVisible: false,
       multipleSelection: [],
       query: {
-        fields: 'wxuser.id wx_id,wxuser.avatar_url,wxuser.phone,agents.*,wxuser.by_share,wxuser.by_scan',
         wheres: '',
-        sorts: 'create_time desc',
+        sorts: 'wx.create_time desc',
         pageIndex: 1,
         pageSize: 10
       },
@@ -20,16 +23,7 @@ let list = {
       pageSize: this.yzy.pageSize,
       total: 0,
       tableData: [],
-
-      searchList: this.yzy.initFilterSearch(['ID', '用户名', '用户类型', '手机号'], ['pk_id', 'username', 'dtype', 'phone']),
-      formData:{
-        wx_id: '',
-        name: '',
-        price: '',
-        msg: '',
-        username:'',
-        pwd:''
-      }
+      searchList: this.yzy.initFilterSearch(['ID', '手机号', '昵称'], ['wx.id', 'wx.phone', 'wx.nick_name'])
     }
   },
   mounted() {
@@ -37,17 +31,17 @@ let list = {
     that.getList()
   },
   methods: {
-    submitAgents(){
+    submitAgents() {
       if (this.formData.wx_id != '' && this.formData.name != '' && this.formData.price != '' && this.formData.msg != '') {
         this.loading = true
-        this.yzy.post('agent/update', this.formData, function (res) {
+        this.yzy.post('agent/add', this.formData, function (res) {
           that.centerDialogVisible = false
           that.loading = false
           if (res.code) {
 
             that.$message({
               type: 'success',
-              message: '修改成功'
+              message: '添加成功'
             })
           } else {
             that.$message({
@@ -64,14 +58,20 @@ let list = {
       }
     },
     getList() {
+
       let sq = ''
       for (let i in this.wheres) {
         if (this.wheres[i].value && this.wheres[i].value != '') {
           sq += this.wheres[i].value + ' and '
         }
       }
-      this.query.wheres = sq + 'wxuser.id = agents.wx_id '
-      this.yzy.post('agent/get', this.query, function (res) {
+      this.query.wheres = sq + '  wx.id=ss.wx_id and ss.sid='+sessionStorage.getItem('uid')
+      // if (sq != '') {
+      //   this.query.wheres = sq.substring(0, sq.length - 4)
+      // } else {
+      //   this.query.wheres = ''
+      // }
+      this.yzy.post('agent/kh', this.query, function (res) {
         if (res.code == 1) {
           that.tableData = res.data.list
           that.total = res.data.total
@@ -144,30 +144,12 @@ let list = {
     filterIds() {
       let arr = []
       for (let i in this.multipleSelection) {
-        arr.push(this.multipleSelection[i].id)
+        arr.push(this.multipleSelection[i].pk_id)
       }
       return arr
     },
     update(url, data) {
       this.yzy.post(url, data, function (res) {
-        if (res.code == 1) {
-          that.$message({
-            type: 'success',
-            message: res.msg
-          })
-          that.getList()
-        } else {
-          that.$message({
-            type: 'error',
-            message: res.msg
-          })
-        }
-      })
-    },
-    del(){
-      this.yzy.post('agent/del', {
-        ids:this.filterIds().toString()
-      }, function (res) {
         if (res.code == 1) {
           that.$message({
             type: 'success',

@@ -74,16 +74,7 @@
       </el-table-column>
       <el-table-column prop="province" label="省份"></el-table-column>
       <el-table-column prop="city" label="城市"></el-table-column>
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <div>
-            <el-button
-              type="text"
-              @click="centerDialogVisible = true,formData.wx_id = scope.row.id"
-            >添加为经纪人</el-button>
-          </div>
-        </template>
-      </el-table-column>
+      
     </el-table>
     <div class="panel-end">
       <el-pagination
@@ -122,5 +113,5 @@
   </div>
 </template>
 <script>
-export default require("./list.js");
+export default require("./pagent.js");
 </script>

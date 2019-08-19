@@ -9,9 +9,16 @@
                 <div style="margin-left:5px;font-size:16px">{{systemName}}</div>
             </div>
             <el-form :model="formData" status-icon  label-position="top" style="margin-top:20px">
+                <el-form-item label="账号类型" >
+                    <el-select v-model="formData.type" placeholder="请选择" style="width:100%">
+                        <el-option label="管理员" value="admin"> </el-option>
+                        <el-option label="经济人" value="jjr"> </el-option>
+                    </el-select>
+                </el-form-item>
                 <el-form-item label="账号" prop="age">
                     <el-input v-model.number="formData.username" placeholder="输入账号/手机号/email"></el-input>
                 </el-form-item>
+                
                 <el-form-item label="密码" prop="checkPass">
                     <el-input type="password" v-model="formData.password" placeholder="输入密码" autocomplete="off"></el-input>
                 </el-form-item>

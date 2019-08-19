@@ -34,6 +34,9 @@ import carousel from '../pages/carousel/carousel.vue'
 import rich from '../pages/rich/richtext.vue'
 import richEdit from '../pages/rich/richtext_edit.vue'
 
+import pagent from '../pages/agent/pagent.vue'
+import pwallet from '../pages/wallet/pwallet.vue'
+
 
 Vue.use(Router)
 
@@ -142,6 +145,16 @@ export default new Router({
           path: '/richEdit',
           name: '新增新闻',
           component: richEdit
+        },
+        {
+          path: '/pagent',
+          name: '我的客户',
+          component: pagent
+        },
+        {
+          path: '/pwallet',
+          name: '我的账户',
+          component: pwallet
         },
       ]
     }
